@@ -61,7 +61,7 @@ impl State {
 
     fn dead(&mut self, ctx: &mut BTerm) {
         ctx.cls();
-        ctx.print_centered(5, "You are dead!");
+        ctx.print_centered(5, "You lost!");
         ctx.print_centered(6, &format!("You scored {} points", self.score));
         ctx.print_centered(8, "(P) Play Game");
         ctx.print_centered(9, "(Q) Quit Game");
@@ -76,7 +76,7 @@ impl State {
 
     fn main_menu(&mut self, ctx: &mut BTerm) {
         ctx.cls();
-        ctx.print_centered(5, "Welcome to Flappy Birdie");
+        ctx.print_centered(5, "Welcome to Flying Birdie");
         ctx.print_centered(8, "(P) Play Game");
         ctx.print_centered(9, "(Q) Quit Game");
 
@@ -174,8 +174,12 @@ impl Obstacle {
     }
 }
 fn main() -> BError {
-    let context = BTermBuilder::simple80x50()
-        .with_title("Flappy Birdie")
+    let context = BTermBuilder::new()
+        .with_font("../resources/flappy32.png", 32, 32)
+        .with_simple_console(SCREEN_WIDTH, SCREEN_HEIGHT, "../resources/flappy32.png")
+        .with_fancy_console(SCREEN_WIDTH, SCREEN_HEIGHT, "../resources/flappy32.png")
+        .with_title("Flying Birdie")
+        .with_tile_dimensions(16, 16)
         .build()?;
     main_loop(context, State::new())
 }
